@@ -39,7 +39,7 @@
  */
 package dorkbox.hex
 
-import dorkbox.hex.*
+import dorkbox.bytes.sha512
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -65,15 +65,50 @@ class TestHex {
 
     @Test
     fun testPrimitives() {
-        assertEquals("0x0", 0.toHexString())
-        assertEquals("0x1", 1.toHexString())
+        assertEquals("00", 0.toHexString(false))
+        assertEquals("0x00", 0.toHexString())
+        assertEquals("0x01", 1.toHexString())
         assertEquals("0xa", 10.toHexString())
+        assertEquals("0xA", 10.toHexString(upperCase = true))
         assertEquals("0xf", 15.toHexString())
         assertEquals("0x10", 16.toHexString())
         assertEquals("0x11", 17.toHexString())
         assertEquals("0xff", 255.toHexString())
         assertEquals("0x100", 256.toHexString())
         assertEquals("0x4e9", 1257.toHexString())
+        assertEquals("0x4E9", 1257.toHexString(upperCase = true))
+        assertEquals("4E9", 1257.toHexString(usePrefix = false, upperCase = true))
+    }
+
+    @Test
+    fun testPrimitivesRoundTrip() {
+        assertEquals(1.toByte(), 1.toByte().toHexString().hexToByte())
+        assertEquals(127.toByte(), 127.toByte().toHexString().hexToByte())
+        assertEquals(255.toUByte(), 255.toUByte().toHexString().hexToUByte())
+
+        assertEquals(1.toShort(), 1.toShort().toHexString().hexToShort())
+        assertEquals(Short.MIN_VALUE, Short.MIN_VALUE.toHexString().hexToShort())
+        assertEquals(Short.MAX_VALUE, Short.MAX_VALUE.toHexString().hexToShort())
+
+        assertEquals(1.toUShort(), 1.toUShort().toHexString().hexToUShort())
+        assertEquals(UShort.MIN_VALUE, UShort.MIN_VALUE.toHexString().hexToUShort())
+        assertEquals(UShort.MAX_VALUE, UShort.MAX_VALUE.toHexString().hexToUShort())
+
+        assertEquals(1, 1.toHexString().hexToInt())
+        assertEquals(Int.MIN_VALUE, Int.MIN_VALUE.toHexString().hexToInt())
+        assertEquals(Int.MAX_VALUE, Int.MAX_VALUE.toHexString().hexToInt())
+
+        assertEquals(1.toUInt(), 1.toUInt().toHexString().hexToUInt())
+        assertEquals(UInt.MIN_VALUE, UInt.MIN_VALUE.toHexString().hexToUInt())
+        assertEquals(UInt.MAX_VALUE, UInt.MAX_VALUE.toHexString().hexToUInt())
+
+        assertEquals(1L, 1L.toHexString().hexToLong())
+        assertEquals(Long.MIN_VALUE, Long.MIN_VALUE.toHexString().hexToLong())
+        assertEquals(Long.MAX_VALUE, Long.MAX_VALUE.toHexString().hexToLong())
+
+        assertEquals(1.toULong(), 1.toULong().toHexString().hexToULong())
+        assertEquals(ULong.MIN_VALUE, ULong.MIN_VALUE.toHexString().hexToULong())
+        assertEquals(ULong.MAX_VALUE, ULong.MAX_VALUE.toHexString().hexToULong())
     }
 
     @Test
