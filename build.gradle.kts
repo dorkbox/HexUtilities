@@ -34,7 +34,7 @@ plugins {
 
 object Extras {
     // set for the project
-    const val description = "Hex utilities"
+    const val description = "Hex conversion utilities for Strings, Collections, ByteArrays, Unsigned numbers, and numbers"
     const val group = "com.dorkbox"
     const val version = "1.0"
 
@@ -59,6 +59,14 @@ licensing {
         description(Extras.description)
         author(Extras.vendor)
         url(Extras.url)
+
+        extra("Hex utility methods", License.APACHE_2) {
+            url(Extras.url)
+            url("https://netty.io")
+            url("https://github.com/netty/netty/blob/4.1/buffer/src/main/java/io/netty/buffer/ByteBufUtil.java")
+            copyright(2014)
+            author("The Netty Project")
+        }
     }
 }
 
