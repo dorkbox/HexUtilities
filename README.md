@@ -11,7 +11,7 @@ Maven Info
     <dependency>
       <groupId>com.dorkbox</groupId>
       <artifactId>HexUtilities</artifactId>
-      <version>1.0</version>
+      <version>1.1</version>
     </dependency>
 </dependencies>
 ```
@@ -21,7 +21,7 @@ Gradle Info
 ```
 dependencies {
     ...
-    implementation("com.dorkbox:HexUtilities:1.0")
+    implementation("com.dorkbox:HexUtilities:1.1")
 }
 ```
 
